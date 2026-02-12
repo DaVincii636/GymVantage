@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Packages — GymVantage</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    /* existing CSS retained exactly as-is */
+    .billing-toggle { display: flex; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 3rem; }
+    .toggle-label { color: var(--text-secondary); font-size: 0.9rem; font-weight: 500; }
+    .toggle-label.active { color: var(--text-primary); }
+    .toggle-switch { width: 52px; height: 28px; background: var(--bg-card); border: 1.5px solid var(--border); border-radius: 14px; cursor: pointer; position: relative; transition: var(--transition); }
+    .toggle-switch.yearly { background: var(--blue-dim); border-color: var(--border-hover); }
+    .toggle-knob { width: 22px; height: 22px; background: var(--text-secondary); border-radius: 50%; position: absolute; top: 2px; left: 2px; transition: var(--transition); }
+    .toggle-switch.yearly .toggle-knob { transform: translateX(24px); background: var(--blue-light); box-shadow: var(--shadow-blue); }
+    .save-badge { background: rgba(16,185,129,0.12); color: #34d399; border: 1px solid rgba(16,185,129,0.2); padding: 3px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 600; }
+    .package-card { padding: 2.5rem 2rem; position: relative; overflow: hidden; display: flex; flex-direction: column; }
+    .package-card.featured { border-color: var(--blue-accent); box-shadow: var(--shadow-blue-lg); background: linear-gradient(160deg, rgba(37,99,235,0.08) 0%, var(--bg-card) 100%); }
+    .featured-ribbon { position: absolute; top: 20px; right: -30px; background: linear-gradient(135deg, var(--blue-accent), var(--blue-light)); color: #fff; padding: 6px 40px; font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; transform: rotate(35deg); box-shadow: var(--shadow-blue); }
+    .pkg-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .pkg-name { font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .pkg-tagline { color: var(--text-secondary); font-size: 0.88rem; margin-bottom: 1.5rem; }
+    .pkg-price { margin-bottom: 1.75rem; }
+    .price-amount { font-family: 'Rajdhani', sans-serif; font-size: 3rem; font-weight: 700; color: var(--blue-light); line-height: 1; }
+    .price-currency { font-size: 1.2rem; vertical-align: super; color: var(--text-secondary); }
+    .price-period { color: var(--text-muted); font-size: 0.85rem; margin-top: 4px; }
+    .pkg-features { list-style: none; margin-bottom: 2rem; flex: 1; }
+    .pkg-features li { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.04); color: var(--text-secondary); font-size: 0.9rem; }
+    .pkg-features li:last-child { border-bottom: none; }
+    .check { color: var(--blue-light); font-weight: 700; }
+    .cross { color: var(--text-muted); }
+    .pkg-features li.disabled { opacity: 0.4; }
+    .compare-table { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; margin-top: 4rem; }
+    .compare-table table { width: 100%; border-collapse: collapse; }
+    .compare-table th, .compare-table td { padding: 1rem 1.5rem; text-align: center; border-bottom: 1px solid var(--border); font-size: 0.9rem; }
+    .compare-table th { font-family: 'Rajdhani', sans-serif; font-size: 1rem; font-weight: 700; background: var(--bg-secondary); color: var(--text-primary); }
+    .compare-table th.featured-col { color: var(--blue-light); }
+    .compare-table td:first-child { text-align: left; color: var(--text-secondary); }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table tr:hover td { background: rgba(37,99,235,0.03); }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="../index.html" class="navbar-brand">
+      <img src="../images/Vantage.png" alt="Vantage Logo" style="height:45px;">
+      <span style="font-weight:600;font-size:1.1rem;margin-left:8px;">Gym<span style="color:var(--blue-light)">Vantage</span></span>
+    </a>
+    <ul class="navbar-nav">
+      <li><a href="../index.html" class="nav-link">Home</a></li>
+      <li><a href="instructors.html" class="nav-link">Instructors</a></li>
+      <li><a href="packages.html" class="nav-link active">Packages</a></li>
+      <li><a href="workout-plan.html" class="nav-link">Workout Plan</a></li>
+      <li><a href="payment.html" class="nav-link">Payment</a></li>
+    </ul>
+    <div style="display:flex;gap:0.75rem;align-items:center;">
+      <a href="login.html" class="btn btn-outline" style="padding:8px 18px;font-size:0.85rem;">Log In</a>
+    </div>
+  </nav>
+
+  <div class="page-wrapper">
+    <section class="section">
+      <div class="section-header">
+        <div class="section-tag">Membership Plans</div>
+        <h2 class="section-title">Gym <span>Packages</span></h2>
+        <p class="section-subtitle">Flexible plans to match your goals and budget. Cancel anytime, no hidden fees.</p>
+      </div>
+
+      <!-- Billing Toggle -->
+      <div class="billing-toggle">
+        <span class="toggle-label active" id="monthlyLabel">Monthly</span>
+        <div class="toggle-switch" id="billingToggle" onclick="toggleBilling()">
+          <div class="toggle-knob"></div>
+        </div>
+        <span class="toggle-label" id="yearlyLabel">Yearly</span>
+        <span class="save-badge">Save 20%</span>
+      </div>
+
+      <!-- Package Cards -->
+      <div class="grid-3">
+
+        <div class="card package-card">
+          <div class="pkg-icon">🌱</div>
+          <h3 class="pkg-name">Starter</h3>
+          <p class="pkg-tagline">Perfect for beginners</p>
+          <div class="pkg-price">
+            <div><span class="price-currency">₱</span><span class="price-amount" data-monthly="599" data-yearly="479">599</span></div>
+            <div class="price-period">per month</div>
+          </div>
+          <ul class="pkg-features">
+            <li><span class="check">✓</span> Gym Access (Weekdays)</li>
+            <li><span class="check">✓</span> 2 Group Classes / Month</li>
+            <li><span class="check">✓</span> Locker & Shower Access</li>
+            <li><span class="check">✓</span> Fitness Assessment</li>
+            <li class="disabled"><span class="cross">✕</span> Personal Trainer Sessions</li>
+            <li class="disabled"><span class="cross">✕</span> Nutrition Consultation</li>
+            <li class="disabled"><span class="cross">✕</span> Priority Class Booking</li>
+          </ul>
+          <a href="payment.html?plan=starter" class="btn btn-outline" style="justify-content:center;">Choose Starter</a>
+        </div>
+
+        <div class="card package-card featured">
+          <div class="featured-ribbon">Most Popular</div>
+          <div class="pkg-icon">⚡</div>
+          <h3 class="pkg-name">Pro</h3>
+          <p class="pkg-tagline">For the serious athlete</p>
+          <div class="pkg-price">
+            <div><span class="price-currency">₱</span><span class="price-amount" data-monthly="1299" data-yearly="1039">1,299</span></div>
+            <div class="price-period">per month</div>
+          </div>
+          <ul class="pkg-features">
+            <li><span class="check">✓</span> Unlimited Gym Access</li>
+            <li><span class="check">✓</span> Unlimited Group Classes</li>
+            <li><span class="check">✓</span> Locker & Shower Access</li>
+            <li><span class="check">✓</span> Fitness Assessment</li>
+            <li><span class="check">✓</span> 4 Personal Trainer Sessions</li>
+            <li><span class="check">✓</span> Nutrition Consultation</li>
+            <li class="disabled"><span class="cross">✕</span> Priority Class Booking</li>
+          </ul>
+          <a href="payment.html?plan=pro" class="btn btn-primary" style="justify-content:center;">Choose Pro</a>
+        </div>
+
+        <div class="card package-card">
+          <div class="pkg-icon">👑</div>
+          <h3 class="pkg-name">Elite</h3>
+          <p class="pkg-tagline">The full VIP experience</p>
+          <div class="pkg-price">
+            <div><span class="price-currency">₱</span><span class="price-amount" data-monthly="2499" data-yearly="1999">2,499</span></div>
+            <div class="price-period">per month</div>
+          </div>
+          <ul class="pkg-features">
+            <li><span class="check">✓</span> 24/7 Unlimited Gym Access</li>
+            <li><span class="check">✓</span> Unlimited Group Classes</li>
+            <li><span class="check">✓</span> Private Locker (Permanent)</li>
+            <li><span class="check">✓</span> Monthly Fitness Assessment</li>
+            <li><span class="check">✓</span> Unlimited Personal Trainer</li>
+            <li><span class="check">✓</span> Full Nutrition Program</li>
+            <li><span class="check">✓</span> Priority Class Booking</li>
+          </ul>
+          <a href="payment.html?plan=elite" class="btn btn-outline" style="justify-content:center;">Choose Elite</a>
+        </div>
+
+      </div>
+
+      <!-- Compare Table -->
+      <div class="compare-table">
+        <table>
+          <thead>
+            <tr>
+              <th style="text-align:left;">Features</th>
+              <th>Starter</th>
+              <th class="featured-col">Pro ⭐</th>
+              <th>Elite</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Gym Access</td><td>Weekdays</td><td>Unlimited</td><td>24/7</td></tr>
+            <tr><td>Group Classes</td><td>2/month</td><td>Unlimited</td><td>Unlimited</td></tr>
+            <tr><td>Personal Trainer</td><td>✕</td><td>4 sessions</td><td>Unlimited</td></tr>
+            <tr><td>Nutrition Plan</td><td>✕</td><td>1 consultation</td><td>Full Program</td></tr>
+            <tr><td>Locker Access</td><td>✓</td><td>✓</td><td>Private Locker</td></tr>
+            <tr><td>Priority Booking</td><td>✕</td><td>✕</td><td>✓</td></tr>
+            <tr><td>Guest Pass</td><td>✕</td><td>2/month</td><td>Unlimited</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <script src="../js/main.js"></script>
+  <script>
+    let isYearly = false;
+    function toggleBilling() {
+      isYearly = !isYearly;
+      const toggle = document.getElementById('billingToggle');
+      const ml = document.getElementById('monthlyLabel');
+      const yl = document.getElementById('yearlyLabel');
+      toggle.classList.toggle('yearly', isYearly);
+      ml.classList.toggle('active', !isYearly);
+      yl.classList.toggle('active', isYearly);
+      document.querySelectorAll('.price-amount').forEach(el => {
+        const val = isYearly ? el.dataset.yearly : el.dataset.monthly;
+        el.style.transition = 'opacity 0.2s';
+        el.style.opacity = '0';
+        setTimeout(() => { el.textContent = parseInt(val).toLocaleString(); el.style.opacity = '1'; }, 200);
+      });
+    }
+  </script>
+</body>
+</html>

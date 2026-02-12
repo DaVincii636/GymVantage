@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Instructors — GymVantage</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <style>
+    .instructor-card {
+      text-align: center;
+      padding: 2rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .instructor-avatar {
+      width: 90px; height: 90px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue-accent), var(--blue-glow));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.5rem;
+      margin: 0 auto 1.2rem;
+      border: 3px solid var(--border);
+      box-shadow: var(--shadow-blue);
+      transition: var(--transition);
+    }
+    .instructor-card:hover .instructor-avatar {
+      transform: scale(1.08);
+      box-shadow: var(--shadow-blue-lg);
+      border-color: var(--blue-light);
+    }
+    .instructor-name {
+      font-size: 1.3rem;
+      margin-bottom: 0.3rem;
+    }
+    .instructor-specialty {
+      color: var(--blue-light);
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.75rem;
+    }
+    .instructor-bio {
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+      line-height: 1.7;
+      margin-bottom: 1.25rem;
+    }
+    .instructor-stats {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      padding: 1rem 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 1.25rem;
+    }
+    .inst-stat { text-align: center; }
+    .inst-stat-val {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--blue-light);
+    }
+    .inst-stat-lbl { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+    .filter-bar {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+    .filter-btn {
+      padding: 8px 20px;
+      border-radius: 20px;
+      border: 1.5px solid var(--border);
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
+      font-family: 'Exo 2', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--blue-dim);
+      border-color: var(--border-hover);
+      color: var(--blue-glow);
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="../index.html" class="navbar-brand">
+      <img src="../images/Vantage.png" alt="Vantage Logo" style="height:45px;">
+      <span style="font-weight:600;font-size:1.1rem;margin-left:8px;">Gym<span style="color:var(--blue-light)">Vantage</span></span>
+    </a>
+    <ul class="navbar-nav">
+      <li><a href="../index.html" class="nav-link">Home</a></li>
+      <li><a href="instructors.html" class="nav-link active">Instructors</a></li>
+      <li><a href="packages.html" class="nav-link">Packages</a></li>
+      <li><a href="workout-plan.html" class="nav-link">Workout Plan</a></li>
+      <li><a href="payment.html" class="nav-link">Payment</a></li>
+    </ul>
+    <div style="display:flex;gap:0.75rem;align-items:center;">
+      <a href="login.html" class="btn btn-outline" style="padding:8px 18px;font-size:0.85rem;">Log In</a>
+    </div>
+  </nav>
+
+  <div class="page-wrapper">
+    <section class="section">
+      <div class="section-header">
+        <div class="section-tag">Meet the Team</div>
+        <h2 class="section-title">Our Expert <span>Instructors</span></h2>
+        <p class="section-subtitle">World-class certified coaches dedicated to helping you reach your peak performance.</p>
+      </div>
+
+      <!-- Filter Bar -->
+      <div class="filter-bar">
+        <button class="filter-btn active" onclick="filterInstructors(this, 'all')">All</button>
+        <button class="filter-btn" onclick="filterInstructors(this, 'strength')">Strength</button>
+        <button class="filter-btn" onclick="filterInstructors(this, 'cardio')">Cardio</button>
+        <button class="filter-btn" onclick="filterInstructors(this, 'yoga')">Yoga & Wellness</button>
+        <button class="filter-btn" onclick="filterInstructors(this, 'boxing')">Boxing</button>
+        <button class="filter-btn" onclick="filterInstructors(this, 'hiit')">HIIT</button>
+      </div>
+
+     <!-- Instructor Cards -->
+<div class="grid-3" id="instructorGrid">
+
+  <div class="card instructor-card" data-category="strength">
+    <div class="instructor-avatar">
+      <img src="../images/VM.png" alt="Marcus Rivera" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">
+    </div>
+    <h4 class="instructor-name">Marcus Rivera</h4>
+    <div class="instructor-specialty">Strength & Powerlifting</div>
+    <p class="instructor-bio">12 years of competitive powerlifting experience. Specializes in building raw strength and muscle mass through evidence-based programming.</p>
+    <div class="instructor-stats">
+      <div class="inst-stat"><div class="inst-stat-val">12+</div><div class="inst-stat-lbl">Years Exp.</div></div>
+      <div class="inst-stat"><div class="inst-stat-val">340</div><div class="inst-stat-lbl">Clients</div></div>
+      <div class="inst-stat"><div class="inst-stat-val">4.9★</div><div class="inst-stat-lbl">Rating</div></div>
+    </div>
+  </div>
+
+  <div class="card instructor-card" data-category="yoga">
+    <div class="instructor-avatar">
+      <img src="../images/VM.png" alt="Priya Sharma" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">
+    </div>
+    <h4 class="instructor-name">Priya Sharma</h4>
+    <div class="instructor-specialty">Yoga & Mindfulness</div>
+    <p class="instructor-bio">Certified Hatha and Vinyasa yoga instructor with a background in sports rehabilitation and stress management therapy.</p>
+    <div class="instructor-stats">
+      <div class="inst-stat"><div class="inst-stat-val">8+</div><div class="inst-stat-lbl">Years Exp.</div></div>
+      <div class="inst-stat"><div class="inst-stat-val">210</div><div class="inst-stat-lbl">Clients</div></div>
+      <div class="inst-stat"><div class="inst-stat-val">5.0★</div><div class="inst-stat-lbl">Rating</div></div>
+    </div>
+  </div>
+
+  <div class="card instructor-card" data-category="boxing">
+    <div class="instructor-avatar">
+      <img src="../images/VM.png" alt="DJ Santos" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">
+    </div>
+    <h4 class="instructor-name">DJ Santos</h4>
+    <div class="instructor-specialty">Boxing & Combat Fitness</div>
+    <p class="instructor-bio">Former national boxing champion turned coach. Brings elite-level technique to every class with a focus on fitness, speed, and footwork.</p>
+    <div class="instructor-stats">
+      <div class="inst-stat"><div class="inst-stat-val">15+</div><div class="inst-stat-lbl">Years Exp.</div></div>
+      <div class="inst-stat"><div class="inst-stat-val">480</div><div class="inst-stat-lbl">Clients</div></div>
+      <div class="inst-stat"><div class="inst-stat-val">4.8★</div><div class="inst-stat-lbl">Rating</div></div>
+    </div>
+  </div>
+
+  <div class="card instructor-card" data-category="hiit">
+    <div class="instructor-avatar">
+      <img src="../images/VM.png" alt="Camille Torres" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">
+    </div>
+    <h4 class="instructor-name">Camille Torres</h4>
+    <div class="instructor-specialty">HIIT & Metabolic Training</div>
+    <p class="instructor-bio">Specializes in high-octane interval training that maximizes fat burn and cardiovascular endurance. Results in under 30 minutes a day.</p>
+    <div class="instructor-stats">
+      <div class="inst-stat"><div class="inst-stat-val">6+</div><div class="inst-stat-lbl">Years Exp.</div></div>
+      <div class="inst-stat"><div class="inst-stat-val">295</div><div class="inst-stat-lbl">Clients</div></div>
+      <div class="inst-stat"><div class="inst-stat-val">4.9★</div><div class="inst-stat-lbl">Rating</div></div>
+    </div>
+  </div>
+
+  <div class="card instructor-card" data-category="cardio">
+    <div class="instructor-avatar">
+      <img src="../images/VM.png" alt="Alex Mendez" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">
+    </div>
+    <h4 class="instructor-name">Alex Mendez</h4>
+    <div class="instructor-specialty">Cardio & Endurance</div>
+    <p class="instructor-bio">Certified cycling and marathon coach. Helps clients build aerobic capacity and endurance for sports and everyday fitness goals.</p>
+    <div class="instructor-stats">
+      <div class="inst-stat"><div class="inst-stat-val">10+</div><div class="inst-stat-lbl">Years Exp.</div></div>
+      <div class="inst-stat"><div class="inst-stat-val">380</div><div class="inst-stat-lbl">Clients</div></div>
+      <div class="inst-stat"><div class="inst-stat-val">4.7★</div><div class="inst-stat-lbl">Rating</div></div>
+    </div>
+  </div>
+
+  <div class="card instructor-card" data-category="strength">
+    <div class="instructor-avatar">
+      <img src="../images/VM.png" alt="Nina Cruz" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">
+    </div>
+    <h4 class="instructor-name">Nina Cruz</h4>
+    <div class="instructor-specialty">Body Sculpt & Toning</div>
+    <p class="instructor-bio">Expert in aesthetic physique training and muscle toning. Combines resistance training with nutrition planning for visible results fast.</p>
+    <div class="instructor-stats">
+      <div class="inst-stat"><div class="inst-stat-val">9+</div><div class="inst-stat-lbl">Years Exp.</div></div>
+      <div class="inst-stat"><div class="inst-stat-val">260</div><div class="inst-stat-lbl">Clients</div></div>
+      <div class="inst-stat"><div class="inst-stat-val">5.0★</div><div class="inst-stat-lbl">Rating</div></div>
+    </div>
+  </div>
+
+</div>
+
+
+  <script src="../js/main.js"></script>
+  <script>
+    function filterInstructors(btn, category) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.instructor-card').forEach(card => {
+        if (category === 'all' || card.dataset.category === category) {
+          card.parentElement.style.display = '';
+        } else {
+          card.parentElement.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>

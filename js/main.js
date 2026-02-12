@@ -168,11 +168,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const wallets = {
     gcash: {
-      img: '../images/Gcash.png',
+      img: 'Images/Gcash.png',
       text: 'Enter your registered GCash number.'
     },
     maya: {
-      img: '../images/Maya.png',
+      img: 'Images/Maya.png',
       text: 'Enter your registered Maya number.'
     }
   };

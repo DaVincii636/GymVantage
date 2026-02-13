@@ -166,16 +166,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const ewalletImage = document.querySelector('#ewalletForm img');
   const ewalletText = document.getElementById('ewalletText');
 
-  const wallets = {
-    gcash: {
-      img: 'Images/Gcash.png',
-      text: 'Enter your registered GCash number.'
-    },
-    maya: {
-      img: 'Images/Maya.png',
-      text: 'Enter your registered Maya number.'
-    }
-  };
+  // FIX: Correct image paths for GitHub Pages (payment.html is inside /pages)
+const wallets = {
+  gcash: {
+    img: '../Images/Gcash.png', // correct relative path
+    text: 'Enter your registered GCash number.'
+  },
+  maya: {
+    img: '../Images/Maya.png', // correct relative path
+    text: 'Enter your registered Maya number.'
+  }
+};
+
 
   window.selectMethod = function(tabElement, method) {
     // Remove active class from all tabs
